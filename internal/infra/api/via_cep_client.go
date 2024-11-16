@@ -66,7 +66,7 @@ func (v *ViaCepClient) getBaseURL() string {
 	if v.BaseURL != "" {
 		return v.BaseURL
 	}
-	return "http://viacep.com.br"
+	return "https://viacep.com.br"
 }
 
 // Certificando que ViaCepClient implementa AddressClientInterface

@@ -46,6 +46,10 @@ func main() {
 		web.WeatherHandler(ctx, addressUsecase, weatherUsecase, w, r)
 	})
 
+	// Serve a pasta `public` na rota raiz
+	fs := http.FileServer(http.Dir("./public"))
+	http.Handle("/", fs)
+
 	// Iniciando o servidor
 	log.Println("Starting server on :8080")
 	if err := http.ListenAndServe(":8080", nil); err != nil {

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API de Busca de Temperatura por CEP</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+      }
+      h1,
+      h2 {
+        color: #333;
+      }
+      pre {
+        background-color: #f4f4f4;
+        padding: 15px;
+        border-radius: 5px;
+        overflow-x: auto;
+      }
+      a {
+        color: #0066cc;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>API de Busca de Temperatura por CEP</h1>
+    <p>
+      Esta aplicação busca a localização de um CEP e retorna a temperatura atual
+      da cidade em Celsius, Fahrenheit e Kelvin.
+    </p>
+
+    <h2>Como Utilizar</h2>
+    <p>
+      Envie uma solicitação GET para a rota
+      <code>/weather?cep=SEU_CEP</code> com um CEP válido de 8 dígitos.
+    </p>
+    <p>
+      <strong>Exemplo:</strong>
+      <a href="/weather?cep=89500001" target="_blank">/weather?cep=89500001</a>
+    </p>
+
+    <h2>Exemplo de Resposta</h2>
+    <pre>
+{
+  "temp_C": 19.2,
+  "temp_F": 66.56,
+  "temp_K": 292.35
+}
+    </pre>
+
+    <h2>Tratamento de Erros</h2>
+    <ul>
+      <li>
+        <strong>CEP inválido:</strong> Retorna status 422 com a mensagem
+        <code>{"message": "invalid zipcode"}</code>
+      </li>
+      <li>
+        <strong>CEP não encontrado:</strong> Retorna status 404 com a mensagem
+        <code>{"message": "can not find zipcode"}</code>
+      </li>
+      <li>
+        <strong>Erro ao buscar dados de clima:</strong> Retorna status 500 com a
+        mensagem <code>{"message": "error fetching weather data"}</code>
+      </li>
+    </ul>
+
+    <h2>Sobre</h2>
+    <p>
+      Este projeto foi desenvolvido em Go e utiliza Docker para containerização
+      e Google Cloud Run para deploy.
+    </p>
+    <p>
+      Consulte o
+      <a href="https://github.com/seu-usuario/go-temp-service" target="_blank"
+        >repositório no GitHub</a
+      >
+      para mais detalhes.
+    </p>
+  </body>
+</html>
