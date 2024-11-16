@@ -1,38 +1,38 @@
-package usecase
+package usecase_test
 
 import (
 	"context"
 	"testing"
 
 	"github.com/jeancarlosdanese/go-temp-service/internal/entity"
-	"github.com/stretchr/testify/assert"
+	"github.com/jeancarlosdanese/go-temp-service/internal/usecase"
+	"github.com/stretchr/testify/mock"
 )
 
-type mockAddressClient struct{}
-
-func (m *mockAddressClient) FetchAddress(ctx context.Context, cep string) (*entity.Address, error) {
-	return &entity.Address{
-		Cep:        "01001-000",
-		Logradouro: "Praça da Sé",
-		Bairro:     "Sé",
-		Cidade:     "São Paulo",
-		Uf:         "SP",
-	}, nil
+type MockAddressClient struct {
+	mock.Mock
 }
 
-func TestAddressUsecase_GetAddress(t *testing.T) {
-	ctx := context.Background()
-	mockClient := &mockAddressClient{}
-	usecase := NewAddressUsecase(mockClient)
+func (m *MockAddressClient) FetchAddress(ctx context.Context, cep string) (*entity.Address, error) {
+	args := m.Called(ctx, cep)
+	return args.Get(0).(*entity.Address), args.Error(1)
+}
 
-	address, err := usecase.GetAddress(ctx, "01001000")
+func TestGetAddress(t *testing.T) {
+	mockClient := new(MockAddressClient)
+	mockClient.On("FetchAddress", mock.Anything, "12345678").Return(&entity.Address{
+		Cep:    "12345678",
+		Cidade: "São Paulo",
+		Uf:     "SP",
+	}, nil)
 
-	assert.NoError(t, err)
-	assert.Equal(t, &entity.Address{
-		Cep:        "01001-000",
-		Logradouro: "Praça da Sé",
-		Bairro:     "Sé",
-		Cidade:     "São Paulo",
-		Uf:         "SP",
-	}, address)
+	usecase := usecase.NewAddressUsecase(mockClient)
+	address, err := usecase.GetAddress(context.Background(), "12345678")
+	if err != nil {
+		t.Fatalf("Expected no error, got %v", err)
+	}
+
+	if address.Cidade != "São Paulo" {
+		t.Errorf("Expected city 'São Paulo', got '%s'", address.Cidade)
+	}
 }

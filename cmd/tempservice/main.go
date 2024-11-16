@@ -1,11 +1,8 @@
 package main
 
 import (
-	"context"
 	"log"
-	"net/http"
 	"os"
-	"time"
 
 	"github.com/jeancarlosdanese/go-temp-service/internal/infra/api"
 	"github.com/jeancarlosdanese/go-temp-service/internal/infra/web"
@@ -36,23 +33,9 @@ func main() {
 	addressUsecase := usecase.NewAddressUsecase(viaCepClient, brasilApiClient)
 	weatherUsecase := usecase.NewWeatherUsecase(weatherClient)
 
-	// Configurando o manipulador HTTP com a usecase
-	http.HandleFunc("/weather", func(w http.ResponseWriter, r *http.Request) {
-		// Criando um contexto com timeout para a requisição
-		ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
-		defer cancel()
+	// Configura o roteador
+	mux := web.NewRouter(addressUsecase, weatherUsecase)
 
-		// Chama o manipulador passando o contexto e as usecases
-		web.WeatherHandler(ctx, addressUsecase, weatherUsecase, w, r)
-	})
-
-	// Serve a pasta `public` na rota raiz
-	fs := http.FileServer(http.Dir("./public"))
-	http.Handle("/", fs)
-
-	// Iniciando o servidor
-	log.Println("Starting server on :8080")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		log.Fatalf("Could not start server: %v\n", err)
-	}
+	// Inicia o servidor
+	web.StartServer(mux)
 }
