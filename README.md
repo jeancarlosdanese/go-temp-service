@@ -129,6 +129,10 @@ gcloud run deploy temp-service \
 
 **5. Acesse a URL fornecida pelo Google Cloud Run após o deploy.**
 
+[Clique aqui para acessar a API de Busca de Temperatura por CEP](https://go-temp-service-871654810459.southamerica-east1.run.app/)
+
+Ex: https://go-temp-service-871654810459.southamerica-east1.run.app/weather?cep=89500001
+
 ## Licença
 
 Este projeto está sob a licença MIT. Sinta-se à vontade para modificar e utilizar conforme suas necessidades.
