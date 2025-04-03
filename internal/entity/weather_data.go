@@ -1,3 +1,5 @@
+// internal/entity/weather_data.go
+
 package entity
 
 import (

@@ -1,3 +1,5 @@
+// internal/interfaces/weather_client.go
+
 package interfaces
 
 import (

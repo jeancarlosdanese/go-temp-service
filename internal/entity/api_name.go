@@ -1,3 +1,5 @@
+// internal/entity/api_name.go
+
 package entity
 
 // ApiName define os tipos possíveis de ações em uma entidade.

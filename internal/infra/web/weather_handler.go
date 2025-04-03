@@ -1,3 +1,5 @@
+// internal/infra/web/weather_handler.go
+
 package web
 
 import (

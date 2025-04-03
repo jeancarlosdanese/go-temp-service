@@ -1,3 +1,5 @@
+// internal/entity/address.go
+
 package entity
 
 // Address - struct para armazenar os dados de endereço padronizados

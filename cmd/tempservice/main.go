@@ -1,3 +1,5 @@
+// cmd/tempservice/main.go
+
 package main
 
 import (

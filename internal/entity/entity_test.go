@@ -1,3 +1,5 @@
+// internal/entity/entity_test.go
+
 package entity_test
 
 import (

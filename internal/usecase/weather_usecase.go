@@ -1,8 +1,10 @@
+// internal/usecase/weather_usecase.go
+
 package usecase
 
 import (
 	"context"
-	
+
 	"github.com/jeancarlosdanese/go-temp-service/internal/entity"
 	"github.com/jeancarlosdanese/go-temp-service/internal/interfaces"
 )
